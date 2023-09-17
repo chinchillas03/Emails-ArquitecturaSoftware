@@ -12,16 +12,16 @@ import java.util.Calendar;
  */
 public class Mensaje {
     
-    private String titulo;
+    private String asunto;
     private String contenido;
     private Calendar horaEnvio;
 
     public String getTitulo() {
-        return titulo;
+        return asunto;
     }
 
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        this.asunto = titulo;
     }
 
     public String getContenido() {
