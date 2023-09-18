@@ -14,6 +14,15 @@ public class Servicio {
     
     private String nombre;
     private List<Cuenta> cuentas;
+    private List<Protocolo> protocolos;
+
+    public List<Protocolo> getProtocolos() {
+        return protocolos;
+    }
+
+    public void setProtocolos(List<Protocolo> protocolos) {
+        this.protocolos = protocolos;
+    }
 
     public String getNombre() {
         return nombre;
@@ -29,13 +38,6 @@ public class Servicio {
 
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
-    }
-    
-    public void agregarCuenta(Cuenta elemento) {
-        cuentas.add(elemento);
-    }
-    public Cuenta obtenerCuenta(int indice) {
-        return cuentas.get(indice);
     }
 
 }

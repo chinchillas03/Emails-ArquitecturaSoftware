@@ -12,6 +12,10 @@ public class Protocolo {
     
     private String nombre;
 
+    public Protocolo(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }

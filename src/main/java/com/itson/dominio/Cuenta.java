@@ -13,6 +13,29 @@ public class Cuenta {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private String direccion;
+    private String contrasenia;
+
+    public Cuenta(String direccion, String contrasenia) {
+        this.direccion = direccion;
+        this.contrasenia = contrasenia;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
 
     public String getNombre() {
         return nombre;
