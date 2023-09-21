@@ -1,4 +1,50 @@
 {
-  "nombre": "Diego Chinchillas Alvarez",
-  "direccion": "alvarezchinchillas3@gmail.com" 
+    "servicios": [
+        {
+            "cuentas": [
+                {
+                    "nombre": "Diego Chinchillas Alvarez",
+                    "direccion": "alvarezchinchillas3@gmail.com",
+                    "contrasena": "1234"
+                },
+                {
+                    "nombre": "Daniel Pena",
+                    "direccion": "elpena@gmail.com",
+                    "contrasena": "1234"
+                }
+            ],
+            "protocolos": [
+                {
+                    "nombre": "smtp"
+                },
+                {
+                    "nombre": "imap"
+                }
+            ]
+        },
+        {
+            "cuentas": [
+                {
+                    "nombre": "Diego Chinchillas Alvarez",
+                    "direccion": "alvarezchinchillas3@gmail.com",
+                    "contrasena": "1234"
+                },
+                {
+                    "nombre": "Daniel Peña",
+                    "direccion": "elpeña@gmail.com",
+                    "contrasena": "1234"
+                }
+            ],
+            "protocolos": [
+                {
+                    "nombre": "smtp"
+                },
+                {
+                    "nombre": "imap"
+                }
+            ]
+        }
+    ]
 }
+
+

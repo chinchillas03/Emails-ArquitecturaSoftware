@@ -9,6 +9,8 @@ import com.itson.dominio.Cuenta;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import com.google.gson.reflect.TypeToken;
+import com.itson.dto.ConfiguracionServiciosDTO;
+import com.itson.dto.ServicioDTO;
 import java.lang.reflect.Type;
 import java.io.FileReader;
 import java.io.IOException;
@@ -44,10 +46,12 @@ public class LectorArchivos {
             Logger.getLogger(LectorArchivos.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Cuenta cuenta = gson.fromJson(json, Cuenta.class);
+        ConfiguracionServiciosDTO servicios = gson.fromJson(json, ConfiguracionServiciosDTO.class);
         
-        System.out.println(cuenta.getNombre());
-        System.out.println(cuenta.getDireccion());
+        for (int i = 0; i < 10; i++) {
+            System.out.println(servicios.getServicios().get(i).getCuentas().get(i).getNombre());
+            System.out.println(servicios.getServicios().get(i).getProtocolos().get(i).getNombre());
+        }
 
 //        try {
 //            BufferedReader buffer = new BufferedReader(new FileReader("config.json"));
