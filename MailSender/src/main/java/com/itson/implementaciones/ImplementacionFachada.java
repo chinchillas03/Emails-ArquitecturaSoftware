@@ -8,6 +8,7 @@ import javax.mail.PasswordAuthentication;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -44,7 +45,7 @@ public class ImplementacionFachada{
         Message mensaje = prepararMensaje(session, user, recepient);
         try {
             Transport.send(mensaje);
-        } catch (Exception ex) {
+        } catch (MessagingException ex) {
             ex.printStackTrace();
         }
         System.out.println("Mensaje enviado a " + recepient);
@@ -55,14 +56,13 @@ public class ImplementacionFachada{
         try{
             mensaje.setFrom(new InternetAddress(user));
             mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            mensaje.setSubject("Asunto");
-            mensaje.setText("Mensaje del correo");
-        }catch(Exception ex){
+            mensaje.setSubject("Calificaciones 3er parcial");
+            mensaje.setText("Te sacaste un 10 mijo");
+        }catch(MessagingException ex){
             ex.printStackTrace();
         }
         return mensaje;
     }
-    
     
     public void cambiarConfiguracion() {
         
