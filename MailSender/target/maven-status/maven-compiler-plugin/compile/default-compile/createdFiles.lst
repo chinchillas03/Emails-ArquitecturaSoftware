@@ -1,6 +1,7 @@
 com\itson\dominio\Mensaje.class
 com\itson\implementaciones\ImplementacionFachada.class
 com\itson\dominio\Cuenta.class
+com\itson\dominio\ConfiguracionCorreo.class
 com\itson\implementaciones\pruebas.class
 com\itson\interfaces\ManejadorEmails.class
 com\itson\mailsender\MailSender.class

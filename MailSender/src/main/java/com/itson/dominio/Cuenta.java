@@ -4,6 +4,8 @@
  */
 package com.itson.dominio;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  *
  * @author Usuario
