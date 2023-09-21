@@ -16,7 +16,7 @@ public class pruebas {
     public static void main(String[] args) {
         // TODO code application logic here
         ImplementacionFachada fachada =  new ImplementacionFachada();
-        fachada.enviarEmail("chinchillasdiegoa@gmail.com");
+//        fachada.enviarEmail("chinchillasdiegoa@gmail.com");
     }
     
 }

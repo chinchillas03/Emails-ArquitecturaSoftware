@@ -20,7 +20,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class ImplementacionFachada{
 
-    public void enviarEmail(String recepient) {       
+    public void enviarEmail(String servicio, String protocolo, String cuenta, String destino, String asunto, String contenido) {       
         String user = "alvarezchinchillas3@gmail.com";
         String password = "onihrehokyiwfthb";
         
@@ -42,22 +42,22 @@ public class ImplementacionFachada{
             }
         });
           
-        Message mensaje = prepararMensaje(session, user, recepient);
+        Message mensaje = prepararMensaje(session, user, destino, asunto, contenido);
         try {
             Transport.send(mensaje);
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
-        System.out.println("Mensaje enviado a " + recepient);
+        System.out.println("Mensaje enviado a " + destino);
     }
     
-    private static Message prepararMensaje(Session session, String user, String recepient){
+    private static Message prepararMensaje(Session session, String user, String recepient, String asunto, String contenido){
         Message mensaje = new MimeMessage(session);
         try{
             mensaje.setFrom(new InternetAddress(user));
             mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            mensaje.setSubject("Calificaciones 3er parcial");
-            mensaje.setText("Te sacaste un 10 mijo");
+            mensaje.setSubject(asunto);
+            mensaje.setText(contenido);
         }catch(MessagingException ex){
             ex.printStackTrace();
         }

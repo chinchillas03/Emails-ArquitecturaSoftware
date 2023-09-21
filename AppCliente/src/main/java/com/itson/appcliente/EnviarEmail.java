@@ -3,17 +3,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.itson.appcliente;
+
+import com.itson.implementaciones.ImplementacionFachada;
+import com.itson.utils.LectorArchivos;
+
 /**
  *
  * @author Usuario
  */
 public class EnviarEmail extends javax.swing.JFrame {
-
+    
+    ImplementacionFachada interfaz = new ImplementacionFachada();
+    LectorArchivos lector = new LectorArchivos();
+    private String asunto;
+    private String contenido;
+    
     /**
      * Creates new form EnviarEmail
      */
     public EnviarEmail() {
+        lector.leerArchivo();
         initComponents();
+    }
+    
+    private void extraerCamposTexto(){
+        this.asunto = txtAsunto.getText();
+        this.contenido = txtAsunto.getText();
+    }
+    
+    private void enviar(){
+        extraerCamposTexto();
+        interfaz.enviarEmail("", "", "", 
+                "chinchillasdiegoa@gmail.com", this.asunto, this.contenido);
     }
 
     /**
@@ -58,6 +79,11 @@ public class EnviarEmail extends javax.swing.JFrame {
 
         btnEnviarCorreo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         btnEnviarCorreo.setText("Enviar Correo");
+        btnEnviarCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarCorreoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("Asunto:");
@@ -129,6 +155,11 @@ public class EnviarEmail extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEnviarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarCorreoActionPerformed
+        // TODO add your handling code here:
+        this.enviar();
+    }//GEN-LAST:event_btnEnviarCorreoActionPerformed
 
     /**
      * @param args the command line arguments
