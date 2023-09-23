@@ -5,11 +5,11 @@
 package com.itson.appcliente;
 
 import com.itson.dto.CuentaDTO;
+import com.itson.dto.ProtocoloDTO;
 import com.itson.dto.ServicioDTO;
 import com.itson.implementaciones.ImplementacionFachada;
 import com.itson.utils.LectorArchivos;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -42,9 +42,9 @@ public class EnviarEmail extends javax.swing.JFrame {
         cmbCuentas.removeAllItems();
         for (ServicioDTO servicio : servicios) {
             if (seleccionServicio == servicio.getNombre()) {
-                for (ServicioDTO servicio1 : servicios) {
+                for (CuentaDTO cuentas : servicio.getCuentas()) {
                     int contador = 0;
-                    String cuenta = servicio1.getCuentas().get(contador).getDireccion();
+                    String cuenta = cuentas.getDireccion();
                     if (cuenta != null) {
                         cmbCuentas.addItem(cuenta);
                         contador++;
@@ -59,9 +59,9 @@ public class EnviarEmail extends javax.swing.JFrame {
         cmbProtocolos.removeAllItems();
         for (ServicioDTO servicio : servicios) {
             if (seleccionServicio == servicio.getNombre()) {              
-                for (ServicioDTO servicio1 : servicios) {
+                for (ProtocoloDTO protocolos : servicio.getProtocolos()) {
                     int contador = 0;
-                    String protocolo = servicio1.getProtocolos().get(contador).getNombre();
+                    String protocolo = protocolos.getNombre();
                     if (protocolo != null) {
                         cmbProtocolos.addItem(protocolo);
                         contador++;
