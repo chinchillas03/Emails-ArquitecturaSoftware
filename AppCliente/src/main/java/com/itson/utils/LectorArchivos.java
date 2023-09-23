@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import com.google.gson.reflect.TypeToken;
 import com.itson.dto.ConfiguracionServiciosDTO;
+import com.itson.dto.ProtocoloDTO;
 import com.itson.dto.ServicioDTO;
 import java.lang.reflect.Type;
 import java.io.FileReader;
@@ -23,7 +24,9 @@ import java.util.logging.Logger;
  * @author Usuario
  */
 public class LectorArchivos {
-
+    
+    private List<ServicioDTO> nombresServicios;
+    
     public void leerArchivo() {
         Gson gson = new Gson();
         
@@ -47,34 +50,22 @@ public class LectorArchivos {
         }
         
         ConfiguracionServiciosDTO servicios = gson.fromJson(json, ConfiguracionServiciosDTO.class);
-        
-        for (int i = 0; i < 10; i++) {
-            System.out.println(servicios.getServicios().get(i).getCuentas().get(i).getNombre());
-            System.out.println(servicios.getServicios().get(i).getProtocolos().get(i).getNombre());
-        }
+                
+        nombresServicios = servicios.getServicios();
 
-//        try {
-//            BufferedReader buffer = new BufferedReader(new FileReader("config.json"));
-//
-//            String linea;
-//            while ((linea = buffer.readLine()) != null) {
-//                json += linea;
-//            }
-//            buffer.close();
-//
-//            // Crear un tipo genérico para representar una lista de cuentas
-//            Type tipoListaCuentas = new TypeToken<List<Cuenta>>(){}.getType();
-//
-//            // Leer el archivo JSON y convertirlo en una lista de cuentas
-//            List<Cuenta> cuentas = gson.fromJson(json, tipoListaCuentas);
-//
-//            // Iterar sobre la lista de cuentas e imprimir los detalles
-//            for (Cuenta cuenta : cuentas) {
-//                System.out.println("Nombre: " + cuenta.getNombre());
-//                System.out.println("Dirección de correo: " + cuenta.getDireccion());
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(LectorArchivos.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        System.out.println("------Nombres servidores-------");
+        for (ServicioDTO nombresServicio : nombresServicios) {          
+            System.out.println(nombresServicio.getNombre());
+        }
+        System.out.println("-------------------------------");
     }
+
+    public List<ServicioDTO> getNombresServicios() {
+        return nombresServicios;
+    }
+
+    public void setNombresServicios(List<ServicioDTO> nombresServicios) {
+        this.nombresServicios = nombresServicios;
+    }
+ 
 }

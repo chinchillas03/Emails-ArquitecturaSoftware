@@ -4,8 +4,12 @@
  */
 package com.itson.appcliente;
 
+import com.itson.dto.CuentaDTO;
+import com.itson.dto.ServicioDTO;
 import com.itson.implementaciones.ImplementacionFachada;
 import com.itson.utils.LectorArchivos;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -15,18 +19,60 @@ public class EnviarEmail extends javax.swing.JFrame {
     
     ImplementacionFachada interfaz = new ImplementacionFachada();
     LectorArchivos lector = new LectorArchivos();
-    private String asunto;
-    private String contenido;
-    
+    private List<ServicioDTO> servicios;
+    private String correo, asunto, contenido;
     /**
      * Creates new form EnviarEmail
      */
     public EnviarEmail() {
         lector.leerArchivo();
         initComponents();
+        this.cargarServicios();
+    }
+    
+    private void cargarServicios(){
+        this.servicios = lector.getNombresServicios();
+        for (ServicioDTO servicio : servicios) {
+            cmbServicios.addItem(servicio.getNombre());
+        }
+    }
+    
+    private void cargarCuentas(){
+        String seleccionServicio = cmbServicios.getSelectedItem().toString();
+        cmbCuentas.removeAllItems();
+        for (ServicioDTO servicio : servicios) {
+            if (seleccionServicio == servicio.getNombre()) {
+                for (ServicioDTO servicio1 : servicios) {
+                    int contador = 0;
+                    String cuenta = servicio1.getCuentas().get(contador).getDireccion();
+                    if (cuenta != null) {
+                        cmbCuentas.addItem(cuenta);
+                        contador++;
+                    }
+                }
+            }
+        }
+    }
+    
+    private void cargarProtocolos(){
+        String seleccionServicio = cmbServicios.getSelectedItem().toString();
+        cmbProtocolos.removeAllItems();
+        for (ServicioDTO servicio : servicios) {
+            if (seleccionServicio == servicio.getNombre()) {              
+                for (ServicioDTO servicio1 : servicios) {
+                    int contador = 0;
+                    String protocolo = servicio1.getProtocolos().get(contador).getNombre();
+                    if (protocolo != null) {
+                        cmbProtocolos.addItem(protocolo);
+                        contador++;
+                    }
+                }
+            }
+        }
     }
     
     private void extraerCamposTexto(){
+        this.correo = txtDestinatario.getText();
         this.asunto = txtAsunto.getText();
         this.contenido = txtAsunto.getText();
     }
@@ -34,7 +80,7 @@ public class EnviarEmail extends javax.swing.JFrame {
     private void enviar(){
         extraerCamposTexto();
         interfaz.enviarEmail("", "", "", 
-                "chinchillasdiegoa@gmail.com", this.asunto, this.contenido);
+                correo, this.asunto, this.contenido);
     }
 
     /**
@@ -87,14 +133,25 @@ public class EnviarEmail extends javax.swing.JFrame {
             }
         });
 
+        cmbCuentas.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("Asunto:");
+
+        cmbServicios.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        cmbServicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbServiciosActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setText("Protocolo");
 
+        cmbProtocolos.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel5.setText("Envia tu correo.");
+        jLabel5.setText("Envia tu correo");
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel6.setText("Servicio:");
@@ -102,36 +159,34 @@ public class EnviarEmail extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel7.setText("Destinatario:");
 
+        txtDestinatario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(258, 258, 258))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(btnEnviarCorreo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel6)
-                                .addComponent(cmbProtocolos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addComponent(cmbServicios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbCuentas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
-                                .addComponent(txtAsunto)
-                                .addComponent(txtDestinatario)))))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEnviarCorreo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                        .addComponent(txtAsunto)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel6)
+                        .addComponent(cmbProtocolos, 0, 619, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(cmbServicios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbCuentas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(txtDestinatario)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(252, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(252, 252, 252))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +208,7 @@ public class EnviarEmail extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                .addComponent(txtDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(4, 4, 4)
@@ -164,7 +219,7 @@ public class EnviarEmail extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEnviarCorreo)
-                .addGap(40, 40, 40))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,6 +230,12 @@ public class EnviarEmail extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.enviar();
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed
+
+    private void cmbServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbServiciosActionPerformed
+        // TODO add your handling code here:
+        this.cargarCuentas();
+        this.cargarProtocolos();
+    }//GEN-LAST:event_cmbServiciosActionPerformed
 
     /**
      * @param args the command line arguments

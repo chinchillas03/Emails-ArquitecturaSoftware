@@ -12,10 +12,25 @@ import java.util.List;
  */
 public class ServicioDTO {
     
+    private String nombre;
     private List<CuentaDTO> cuentas;
     private List<ProtocoloDTO> protocolos;
 
     public ServicioDTO() {
+    }
+
+    public ServicioDTO(String nombre, List<CuentaDTO> cuentas, List<ProtocoloDTO> protocolos) {
+        this.nombre = nombre;
+        this.cuentas = cuentas;
+        this.protocolos = protocolos;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public List<ProtocoloDTO> getProtocolos() {

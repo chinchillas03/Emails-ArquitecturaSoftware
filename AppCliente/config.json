@@ -1,6 +1,7 @@
 {
     "servicios": [
         {
+            "nombre" : "Gmail",
             "cuentas": [
                 {
                     "nombre": "Diego Chinchillas Alvarez",
@@ -15,18 +16,16 @@
             ],
             "protocolos": [
                 {
-                    "nombre": "smtp"
-                },
-                {
-                    "nombre": "imap"
+                    "nombre": "SMTP"
                 }
             ]
         },
         {
+            "nombre" : "Outlook",
             "cuentas": [
                 {
-                    "nombre": "Diego Chinchillas Alvarez",
-                    "direccion": "alvarezchinchillas3@gmail.com",
+                    "nombre": "Alma Ochoa",
+                    "direccion": "almaochoa@gmail.com",
                     "contrasena": "1234"
                 },
                 {
@@ -37,13 +36,34 @@
             ],
             "protocolos": [
                 {
-                    "nombre": "smtp"
+                    "nombre": "SMTP"
                 },
                 {
-                    "nombre": "imap"
+                    "nombre": "IMAP"
+                },
+                {
+                    "nombre": "POP"
                 }
             ]
-        }
+        },
+	{
+            "nombre" : "Yahoo",
+            "cuentas": [
+                {
+                    "nombre": "Daniel Pena",
+                    "direccion": "elpena@gmail.com",
+                    "contrasena": "1234"
+                }
+            ],
+            "protocolos": [
+                {
+                    "nombre": "POP"
+                },
+                {
+                    "nombre": "SMTP"
+                }
+            ]
+        }	
     ]
 }
 
