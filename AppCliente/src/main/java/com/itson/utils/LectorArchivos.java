@@ -5,14 +5,10 @@
 package com.itson.utils;
 
 import com.google.gson.Gson;
-import com.itson.dominio.Cuenta;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import com.google.gson.reflect.TypeToken;
 import com.itson.dto.ConfiguracionServiciosDTO;
-import com.itson.dto.ProtocoloDTO;
 import com.itson.dto.ServicioDTO;
-import java.lang.reflect.Type;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;

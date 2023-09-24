@@ -23,7 +23,7 @@ public class ImplementacionFachada{
     public void enviarEmail(String servicio, String protocolo, String cuenta, String destino, String asunto, String contenido) {       
         String user = "alvarezchinchillas3@gmail.com";
         String password = "onihrehokyiwfthb";
-        
+        System.out.println(servicio);
         Properties propiedad = new Properties();
         
         propiedad.put("mail.smtp.ssl.trust", "smtp.gmail.com");        
