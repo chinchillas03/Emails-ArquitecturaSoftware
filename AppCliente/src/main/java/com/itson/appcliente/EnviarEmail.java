@@ -44,7 +44,7 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
     
     private boolean validarDestinatario(){
-        if (validador.validarCorreo(txtDestinatario.toString()) == false) {
+        if (validador.validarCorreo(this.txtDestinatario.toString()) == false) {
             JOptionPane.showMessageDialog(null, "Destinatario incorrecto", 
                     "El formato de correo es incorrecto", JOptionPane.INFORMATION_MESSAGE);
             return false;
@@ -53,7 +53,7 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
     
     private boolean validarAsunto(){
-        if (validador.esVacio(txtAsunto.toString()) == false) {
+        if (validador.esVacio(this.txtAsunto.toString()) == false) {
             JOptionPane.showMessageDialog(null, "Asunto incorrecto incorrecto", 
                     "El el asunto del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
             return false;
@@ -62,7 +62,7 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
     
     private boolean validarCuerpoCorreo(){
-        if (validador.esVacio(txtCuerpoCorreo.toString()) == false) {
+        if (validador.esVacio(this.txtCuerpoCorreo.toString()) == false) {
             JOptionPane.showMessageDialog(null, "Cuerpo de correo incorrecto", 
                     "El cuerpo del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
             return false;
@@ -71,10 +71,11 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
     
     private void ejecucion(){
-        if (validarAsunto() == false || validarCuerpoCorreo() == false || validarDestinatario() == false) {
+        this.extraerDatosCampos();
+        if (this.validarAsunto() == false || this.validarCuerpoCorreo() == false || this.validarDestinatario() == false) {
             JOptionPane.showMessageDialog(null, "Campos incorrectos", 
                     "Campos del correo incorrectos", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        }else{           
             this.enviar();
         }       
     }
@@ -130,13 +131,12 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
     
     private void extraerDatosCampos(){        
-        this.cuentaDestino = txtDestinatario.getText();
-        this.asunto = txtAsunto.getText();
-        this.contenido = txtAsunto.getText();
+        this.cuentaDestino = this.txtDestinatario.getText();
+        this.asunto = this.txtAsunto.getText();
+        this.contenido = this.txtAsunto.getText();
     }
     
-    private void enviar(){
-        this.extraerDatosCampos();
+    private void enviar(){       
         interfaz.enviarEmail(this.serv, this.protocolo, this.cuenta, 
                 this.cuentaDestino, this.asunto, this.contenido);
     }
@@ -285,7 +285,7 @@ public class EnviarEmail extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarCorreoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:   
         this.ejecucion();
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed
 
