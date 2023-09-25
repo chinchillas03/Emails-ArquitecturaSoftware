@@ -44,42 +44,45 @@ public class EnviarEmail extends javax.swing.JFrame {
     }
     
     private boolean validarDestinatario(){
-        if (validador.validarCorreo(this.txtDestinatario.toString()) == false) {
-            JOptionPane.showMessageDialog(null, "Destinatario incorrecto", 
-                    "El formato de correo es incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        String destino = txtDestinatario.getText();
+        if (validador.validarCorreo(destino) == false) {       
             return false;
         }
         return true;
     }
     
     private boolean validarAsunto(){
-        if (validador.esVacio(this.txtAsunto.toString()) == false) {
-            JOptionPane.showMessageDialog(null, "Asunto incorrecto incorrecto", 
-                    "El el asunto del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
+        String asuntoCorreo = txtAsunto.getText();
+        if (validador.esVacio(asuntoCorreo) == false) {      
             return false;
         }
         return true;
     }
     
     private boolean validarCuerpoCorreo(){
-        if (validador.esVacio(this.txtCuerpoCorreo.toString()) == false) {
-            JOptionPane.showMessageDialog(null, "Cuerpo de correo incorrecto", 
-                    "El cuerpo del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
+        String cuerpoCorreo = txtCuerpoCorreo.getText();
+        if (validador.esVacio(cuerpoCorreo) == false) {            
             return false;
         }
         return true;
     }
-    
-    private void ejecucion(){
+   
+    private void ejecucion() {
         this.extraerDatosCampos();
-        if (this.validarAsunto() == false || this.validarCuerpoCorreo() == false || this.validarDestinatario() == false) {
-            JOptionPane.showMessageDialog(null, "Campos incorrectos", 
-                    "Campos del correo incorrectos", JOptionPane.INFORMATION_MESSAGE);
-        }else{           
+        if (this.validarDestinatario() == false) {
+            JOptionPane.showMessageDialog(null, "Destinatario incorrecto",
+                    "El formato de correo es incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        } else if (this.validarAsunto() == false) {
+            JOptionPane.showMessageDialog(null, "Asunto incorrecto incorrecto",
+                    "El el asunto del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);           
+        } else if (this.validarCuerpoCorreo() == false) {
+            JOptionPane.showMessageDialog(null, "Cuerpo de correo incorrecto",
+                    "El cuerpo del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
+        } else {
             this.enviar();
-        }       
+        }
     }
-    
+
     private void cargarServicios(){
         this.servicios = lector.getNombresServicios();
         for (ServicioDTO servicio : servicios) {
