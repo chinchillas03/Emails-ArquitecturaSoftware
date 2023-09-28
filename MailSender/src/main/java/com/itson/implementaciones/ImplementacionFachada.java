@@ -4,6 +4,9 @@
  */
 package com.itson.implementaciones;
 
+import com.itson.apimail.JavaMailAPI;
+import com.itson.interfaces.ManejadorEmails;
+import com.itson.utils.ValidadorEmails;
 import javax.mail.PasswordAuthentication;
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -13,56 +16,49 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class ImplementacionFachada{
-
-    public void enviarEmail(String servicio, String protocolo, String cuenta, String destino, String asunto, String contenido) {       
-        String user = "alvarezchinchillas3@gmail.com";
-        String password = "onihrehokyiwfthb";
-        System.out.println(servicio);
-        Properties propiedad = new Properties();
-        
-        propiedad.put("mail.smtp.ssl.trust", "smtp.gmail.com");        
-        propiedad.put("mail.smtp.host", "smtp.gmail.com");
-        propiedad.setProperty("mail.smtp.starttls.enable", "true");
-        propiedad.setProperty("mail.smtp.port", "587");
-        propiedad.setProperty("mail.smtp.auth", "true");
-        propiedad.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
-        propiedad.setProperty("mail.smtp.user", user);     
-        
-        Session session;
-        session = Session.getInstance(propiedad, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password);
-            }
-        });
-          
-        Message mensaje = prepararMensaje(session, user, destino, asunto, contenido);
-        try {
-            Transport.send(mensaje);
-        } catch (MessagingException ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("Mensaje enviado a " + destino);
-    }
+public class ImplementacionFachada implements ManejadorEmails{
     
-    private static Message prepararMensaje(Session session, String user, String recepient, String asunto, String contenido){
-        Message mensaje = new MimeMessage(session);
-        try{
-            mensaje.setFrom(new InternetAddress(user));
-            mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            mensaje.setSubject(asunto);
-            mensaje.setText(contenido);
-        }catch(MessagingException ex){
-            ex.printStackTrace();
+    ValidadorEmails validador = new ValidadorEmails();  
+    
+    public void enviarEmail(String servicio, String protocolo, String cuenta, String contrasena, String destino, String asunto, String contenido) {       
+        if (validador.esVacio(servicio) == false) {       
+            JOptionPane.showMessageDialog(null, "Servicio incorrecto",
+                    "El el servicio del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);     
         }
-        return mensaje;
-    }
+        if (validador.esVacio(protocolo) == false) {       
+            JOptionPane.showMessageDialog(null, "Protocolo incorrecto",
+                    "El el protocolo del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);     
+        }
+        if (validador.validarCorreo(cuenta) == false) {       
+            JOptionPane.showMessageDialog(null, "Cuenta incorrecta",
+                    "El formato de cuenta es incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (validador.validarCorreo(destino) == false) {       
+            JOptionPane.showMessageDialog(null, "Destinatario incorrecto",
+                    "El formato de correo es incorrecto", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (validador.esVacio(asunto) == false) {       
+            JOptionPane.showMessageDialog(null, "Asunto incorrecto",
+                    "El el asunto del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);     
+        }
+        if (validador.esVacio(contenido) == false) {       
+            JOptionPane.showMessageDialog(null, "Cuerpo de correo incorrecto",
+                    "El cuerpo del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        if (validador.validarCorreo(destino) == false || validador.esVacio(asunto) == false || validador.esVacio(contenido) == false) {
+            return;
+        }
+        
+        JavaMailAPI api = new JavaMailAPI();
+        api.envarMail(servicio, protocolo, cuenta, contrasena, destino, asunto, contenido);
+    } 
     
     public void cambiarConfiguracion() {
         

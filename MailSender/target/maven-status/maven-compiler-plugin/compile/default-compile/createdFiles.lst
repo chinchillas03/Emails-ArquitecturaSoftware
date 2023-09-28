@@ -9,6 +9,5 @@ com\itson\dominio\Servicio.class
 com\itson\dto\ServicioDTO.class
 com\itson\dominio\Mensaje.class
 com\itson\dominio\ConfiguracionCorreo.class
-com\itson\implementaciones\pruebas.class
+com\itson\utils\ValidadorEmails.class
 com\itson\dto\ProtocoloDTO.class
-com\itson\mailsender\MailSender.class

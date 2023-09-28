@@ -10,7 +10,7 @@ package com.itson.interfaces;
  */
 public interface ManejadorEmails {
     
-    void enviarEmail();
+    void enviarEmail(String servicio, String protocolo, String cuenta, String contrasena, String destino, String asunto, String contenido);
     void cambiarConfiguracion();
     
 }

@@ -48,12 +48,6 @@ public class LectorArchivos {
         ConfiguracionServiciosDTO servicios = gson.fromJson(json, ConfiguracionServiciosDTO.class);
                 
         nombresServicios = servicios.getServicios();
-
-        System.out.println("------Nombres servidores-------");
-        for (ServicioDTO nombresServicio : nombresServicios) {          
-            System.out.println(nombresServicio.getNombre());
-        }
-        System.out.println("-------------------------------");
     }
 
     public List<ServicioDTO> getNombresServicios() {

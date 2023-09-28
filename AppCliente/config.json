@@ -6,7 +6,7 @@
                 {
                     "nombre": "Diego Chinchillas Alvarez",
                     "direccion": "alvarezchinchillas3@gmail.com",
-                    "contrasena": "1234"
+                    "contrasena": "onihrehokyiwfthb"
                 },
                 {
                     "nombre": "Daniel Pena",
@@ -36,9 +36,6 @@
             ],
             "protocolos": [
                 {
-                    "nombre": "SMTP"
-                },
-                {
                     "nombre": "IMAP"
                 },
                 {
@@ -56,9 +53,6 @@
                 }
             ],
             "protocolos": [
-                {
-                    "nombre": "POP"
-                },
                 {
                     "nombre": "SMTP"
                 }

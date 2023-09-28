@@ -19,11 +19,11 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class EnviarEmail extends javax.swing.JFrame {
-    ValidadorEmails validador = new ValidadorEmails();
+
     ImplementacionFachada interfaz = new ImplementacionFachada();
     LectorArchivos lector = new LectorArchivos();
     private List<ServicioDTO> servicios;
-    private String serv, protocolo, cuenta;
+    private String serv, protocolo, cuenta, contrasena;
     private String cuentaDestino, asunto, contenido;
     /**
      * Creates new form EnviarEmail
@@ -42,46 +42,6 @@ public class EnviarEmail extends javax.swing.JFrame {
                     "El archivo no se ha leido correctamente", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private boolean validarDestinatario(){
-        String destino = txtDestinatario.getText();
-        if (validador.validarCorreo(destino) == false) {       
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validarAsunto(){
-        String asuntoCorreo = txtAsunto.getText();
-        if (validador.esVacio(asuntoCorreo) == false) {      
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean validarCuerpoCorreo(){
-        String cuerpoCorreo = txtCuerpoCorreo.getText();
-        if (validador.esVacio(cuerpoCorreo) == false) {            
-            return false;
-        }
-        return true;
-    }
-   
-    private void ejecucion() {
-        this.extraerDatosCampos();
-        if (this.validarDestinatario() == false) {
-            JOptionPane.showMessageDialog(null, "Destinatario incorrecto",
-                    "El formato de correo es incorrecto", JOptionPane.INFORMATION_MESSAGE);
-        } else if (this.validarAsunto() == false) {
-            JOptionPane.showMessageDialog(null, "Asunto incorrecto incorrecto",
-                    "El el asunto del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);           
-        } else if (this.validarCuerpoCorreo() == false) {
-            JOptionPane.showMessageDialog(null, "Cuerpo de correo incorrecto",
-                    "El cuerpo del correo esta vacio", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            this.enviar();
-        }
-    }
 
     private void cargarServicios(){
         this.servicios = lector.getNombresServicios();
@@ -95,21 +55,31 @@ public class EnviarEmail extends javax.swing.JFrame {
     
     private void cargarCuentas(){
         String seleccionServicio = cmbServicios.getSelectedItem().toString();
+        this.serv = seleccionServicio;
         cmbCuentas.removeAllItems();
         for (ServicioDTO servicio : servicios) {
             if (seleccionServicio == servicio.getNombre()) {
                 for (CuentaDTO cuentas : servicio.getCuentas()) {
-                    int contador = 0;
                     String cuenta = cuentas.getDireccion();
                     if (cuenta != null) {
                         cmbCuentas.addItem(cuenta);
-                        contador++;
                     }
                 }
             }
         }
-        if (cmbCuentas.getSelectedItem() != null) {
-            this.cuenta = cmbCuentas.getSelectedItem().toString();
+    }
+    
+    private void cargarPropiedadesCuenta(){
+        String cuentaSeleccionada = cmbCuentas.getSelectedItem().toString();
+        String seleccionServicio = cmbServicios.getSelectedItem().toString();
+        for (ServicioDTO servicio : servicios) {
+            if (seleccionServicio == servicio.getNombre()) {
+                for (CuentaDTO cuentas : servicio.getCuentas()) {
+                    if (cuentaSeleccionada == cuentas.getDireccion()) {
+                        this.contrasena = cuentas.getContrasena();
+                    }
+                }
+            }
         }
     }
     
@@ -119,29 +89,29 @@ public class EnviarEmail extends javax.swing.JFrame {
         for (ServicioDTO servicio : servicios) {
             if (seleccionServicio == servicio.getNombre()) {              
                 for (ProtocoloDTO protocolos : servicio.getProtocolos()) {
-                    int contador = 0;
                     String protocolo = protocolos.getNombre();
                     if (protocolo != null) {
                         cmbProtocolos.addItem(protocolo);
-                        contador++;
                     }
                 }
             }
         }
-        if (cmbProtocolos.getSelectedItem() != null) {
-            this.protocolo = cmbProtocolos.getSelectedItem().toString();
-        }
     }
     
-    private void extraerDatosCampos(){        
+    private void extraerDatosCampos(){  
+        this.cargarPropiedadesCuenta();
+        this.cuenta = this.cmbCuentas.getSelectedItem().toString();
+        this.protocolo = this.cmbProtocolos.getSelectedItem().toString();
         this.cuentaDestino = this.txtDestinatario.getText();
         this.asunto = this.txtAsunto.getText();
-        this.contenido = this.txtAsunto.getText();
+        this.contenido = this.txtCuerpoCorreo.getText();
     }
     
-    private void enviar(){       
+    private void enviar(){     
+        this.extraerDatosCampos();
         interfaz.enviarEmail(this.serv, this.protocolo, this.cuenta, 
-                this.cuentaDestino, this.asunto, this.contenido);
+                this.contrasena,this.cuentaDestino, this.asunto, 
+                this.contenido);
     }
 
     /**
@@ -289,7 +259,7 @@ public class EnviarEmail extends javax.swing.JFrame {
 
     private void btnEnviarCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarCorreoActionPerformed
         // TODO add your handling code here:   
-        this.ejecucion();
+        this.enviar();
     }//GEN-LAST:event_btnEnviarCorreoActionPerformed
 
     private void cmbServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbServiciosActionPerformed
