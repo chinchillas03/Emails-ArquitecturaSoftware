@@ -23,17 +23,42 @@ public class JavaMailAPI {
 
     public void envarMail(String servicio, String protocolo, String cuenta, String contrasena, String destino, String asunto, String contenido) {
         try {
-            Properties propiedad = new Properties();
-            propiedad.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-            propiedad.put("mail.smtp.host", "smtp.gmail.com");
-            propiedad.setProperty("mail.smtp.starttls.enable", "true");
-            propiedad.setProperty("mail.smtp.port", "587");
-            propiedad.setProperty("mail.smtp.auth", "true");
-            propiedad.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
-            propiedad.setProperty("mail.smtp.user", cuenta);
+            Properties props = new Properties();
+            if ("Gmail".equals(servicio)) {
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587"); 
+        } else if ("Outlook".equals(servicio)) {
+            if ("SMTP".equals(protocolo)) {
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                props.put("mail.smtp.host", "smtp.live.com");
+                props.put("mail.smtp.port", "587");
+            } else if ("IMAP".equals(protocolo)) {
+                props.put("mail.imap.host", "imap-mail.outlook.com"); 
+                props.put("mail.imap.port", "993"); 
+                props.put("mail.imap.ssl.enable", "true");
+            } else if ("POP3".equals(protocolo)) {
+                props.put("mail.pop3.host", "pop3.live.com"); 
+                props.put("mail.pop3.port", "995");
+                props.put("mail.pop3.ssl.enable", "true");
+            }
+        } else if ("Yahoo".equals(servicio)) {
+            if ("SMTP".equals(protocolo)) {
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                props.put("mail.smtp.host", "smtp.mail.yahoo.com"); 
+                props.put("mail.smtp.port", "587"); 
+            } else if ("POP3".equals(protocolo)) {
+                props.put("mail.pop3.host", "pop.mail.yahoo.com"); 
+                props.put("mail.pop3.port", "995"); 
+                props.put("mail.pop3.ssl.enable", "true");
+            }
+        }
 
             Session session;
-            session = Session.getInstance(propiedad, new Authenticator() {
+            session = Session.getInstance(props, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(cuenta, contrasena);

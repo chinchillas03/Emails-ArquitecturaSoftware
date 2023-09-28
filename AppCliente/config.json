@@ -35,11 +35,14 @@
                 }
             ],
             "protocolos": [
+		{
+                    "nombre": "SMTP"
+                },
                 {
                     "nombre": "IMAP"
                 },
                 {
-                    "nombre": "POP"
+                    "nombre": "POP3"
                 }
             ]
         },
@@ -55,6 +58,9 @@
             "protocolos": [
                 {
                     "nombre": "SMTP"
+                },
+		{
+                    "nombre": "POP3"
                 }
             ]
         }	
