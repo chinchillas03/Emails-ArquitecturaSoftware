@@ -7,11 +7,6 @@
                     "nombre": "Diego Chinchillas Alvarez",
                     "direccion": "alvarezchinchillas3@gmail.com",
                     "contrasena": "onihrehokyiwfthb"
-                },
-                {
-                    "nombre": "Daniel Pena",
-                    "direccion": "elpena@gmail.com",
-                    "contrasena": "1234"
                 }
             ],
             "protocolos": [
@@ -24,14 +19,9 @@
             "nombre" : "Outlook",
             "cuentas": [
                 {
-                    "nombre": "Alma Ochoa",
-                    "direccion": "almaochoa@gmail.com",
-                    "contrasena": "1234"
-                },
-                {
-                    "nombre": "Daniel Peña",
-                    "direccion": "elpeña@gmail.com",
-                    "contrasena": "1234"
+                    "nombre": "Diego Chinchillas",
+                    "direccion": "diegochinchillas333@outlook.com",
+                    "contrasena": "Tequiero1234"
                 }
             ],
             "protocolos": [
